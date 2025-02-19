@@ -306,7 +306,9 @@ let rec type_of (t : term) : (ty * bsi list) checker =
     type_of tm_e >>= fun (ty_e, ctx_e) ->
     check_maybe_type_eq i oty_x ty_e >>
     with_extended_ctx i x.b_name ty_e (type_of tm_f) >>= fun (ty_f, si_x, ctx_f) ->
+    (* Print.pp_si_op_list Format.std_formatter ((shift_sens si_x ctx_e)) ; *)
     check_disjoint i ctx_e ctx_f >>
+    (* if si_x = 0, shift_sens will delete ctx_e *)
     return (ty_f, union_ctx (shift_sens si_x ctx_e) ctx_f)
 
   (* dlet (z : oty_z) = e in f *)

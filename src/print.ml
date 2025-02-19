@@ -122,6 +122,11 @@ let pp_si_op fmt o =
   | None    -> fprintf fmt "?"
   | Some si -> pp_si fmt (Simpl.si_simpl_compute si)
 
+let rec pp_si_op_list fmt l = 
+  match l with
+  | [] -> ()
+  | (h::t) -> pp_si_op fmt h; pp_si_op_list fmt t
+
 (* Pretty printing for types *)
 
 (* Primitive types *)
