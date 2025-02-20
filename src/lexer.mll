@@ -38,6 +38,7 @@ let reservedWords = [
   ("of", fun i -> Parser.OF i);
   ("dlet", fun i -> Parser.DLET i);
   ("let", fun i -> Parser.LET i);
+  ("bind", fun i -> Parser.BIND i);
   ("dnum", fun i -> Parser.DNUM i);
   ("num", fun i -> Parser.NUM i);
   ("bool", fun i -> Parser.BOOL i);

@@ -73,6 +73,7 @@ let nb_var n = {b_name = n; b_size = -1; b_prim = false}
 %token <Support.FileInfo.info> ADD
 %token <Support.FileInfo.info> ADDOP
 %token <Support.FileInfo.info> BANG
+%token <Support.FileInfo.info> BIND
 %token <Support.FileInfo.info> COLON
 %token <Support.FileInfo.info> COMMA
 %token <Support.FileInfo.info> DBLARROW
@@ -162,6 +163,13 @@ Term :
         let dctx' = extend_var $2.v dctx in
         let _ = check_distinct ctx dctx' in
         TmDLet($2.i, (nb_var $2.v), $3 ctx, $5 ctx dctx, $7 ctx dctx')
+      }
+  (* bind expression *)
+  | BIND ID MaybeType EQUAL Term SEMI Term
+      { fun ctx dctx ->
+        let ctx' = extend_var $2.v ctx in
+        let _ = check_distinct ctx' dctx in
+        TmBind($2.i, (nb_var $2.v), $3 ctx, $5 ctx dctx, $7 ctx' dctx)
       }
   (* primitive ops *)
   | DMULOP ID ID

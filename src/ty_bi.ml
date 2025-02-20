@@ -26,6 +26,7 @@ type ty_error_elem =
 | WrongType    of ty * ty
 | WrongShape   of ty * string
 | NotSubtype   of ty * ty
+| NonZeroErr   of string
 | Internal     of string
 
 let ty_seq = ref 0
@@ -253,6 +254,11 @@ let check_disjoint i (ctx1 : bsi list) (ctx2 : bsi list) : unit checker =
     | Some _ -> fail i @@ NotDisjoint
     | None   -> return ()
 
+let check_none i (x : string) (si : bsi) = 
+  match si with 
+  | Some _ -> return ()
+  | None   -> fail i @@ NonZeroErr x
+
 let shift_sens (s : bsi) (l :  bsi list) :  bsi list =
   List.map (add_bsi s) l
 
@@ -318,6 +324,15 @@ let rec type_of (t : term) : (ty * bsi list) checker =
     (* for now: must have e : num *)
     check_prim_dnum_ty i ty_e >>
     with_extended_dctx z.b_name ty_e (type_of tm_f) >>= fun (ty_f, ctx_f) ->
+    check_disjoint i ctx_e ctx_f >>
+    return (ty_f, union_ctx ctx_e ctx_f)
+
+  (* bind (x : oty_x) = e in f *)
+  | TmBind(i, x, oty_x, tm_e, tm_f) ->
+    type_of tm_e >>= fun (ty_e, ctx_e) ->
+    check_maybe_type_eq i oty_x ty_e >>
+    with_extended_ctx i x.b_name (TyPrim PrimNum) (type_of tm_f) >>= fun (ty_f, si_x, ctx_f) ->
+    check_none i x.b_name si_x >>
     check_disjoint i ctx_e ctx_f >>
     return (ty_f, union_ctx ctx_e ctx_f)
 
@@ -443,6 +458,7 @@ let pp_tyerr ppf s = match s with
   | WrongType(ty1, ty2)    -> fprintf ppf "EEE [%3d] Expected %a to be %a" !ty_seq pp_type ty1 pp_type ty2
   | WrongShape(ty, sh)     -> fprintf ppf "EEE [%3d] Type %a has wrong shape, expected %s type" !ty_seq pp_type ty sh
   | NotSubtype(ty1,ty2)    -> fprintf ppf "EEE [%3d] %a is not a subtype of %a" !ty_seq pp_type ty1 pp_type ty2
+  | NonZeroErr(v)          -> fprintf ppf "EEE [%3d] Expected %s to have zero error" !ty_seq v
   | Internal s             -> fprintf ppf "EEE [%3d] Internal error: %s" !ty_seq s
 
 (* Equivalent to run *)

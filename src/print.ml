@@ -279,6 +279,8 @@ let rec pp_term ppf t =
     fprintf ppf "@[<v>@[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n pp_term tm1 pp_term tm2
   | TmDLet(_, n, _sty, tm1, tm2) ->
     fprintf ppf "@[<v>@[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n pp_term tm1 pp_term tm2
+  | TmBind(_, n, _sty, tm1, tm2) ->
+    fprintf ppf "@[<v>@[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n pp_term tm1 pp_term tm2
   (* Case *)
   | TmInl(_, ty, tm_l) -> fprintf ppf "inl @[%a@] @[%a@]" pp_type ty pp_term tm_l
   | TmInr(_, ty, tm_r) -> fprintf ppf "inr @[%a@] @[%a@]" pp_type ty pp_term tm_r

@@ -100,6 +100,7 @@ type term =
   (* Let bindings *)
   | TmLet of info * binder_info * ty option * term * term
   | TmDLet of info * binder_info * ty option * term * term
+  | TmBind of info * binder_info * ty option * term * term
   (* Basic ops *)
   | TmAdd of info * var_info * var_info
   | TmSub of info * var_info * var_info
@@ -122,6 +123,7 @@ let tmInfo t =
   | TmUnionCase (fi, _, _, _, _, _) -> fi
   | TmLet (fi, _, _, _, _) -> fi
   | TmDLet (fi, _, _, _, _) -> fi
+  | TmBind (fi, _, _, _, _) -> fi
   | TmAdd (fi, _, _) -> fi
   | TmSub (fi, _, _) -> fi
   | TmDiv (fi, _, _) -> fi
