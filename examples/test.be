@@ -1,5 +1,6 @@
 {(a : num) (b : num) (c : num)}
 `{(z : dnum)}
 
-bind x = z;
-!x
+
+bind x = (z, z);
+! x

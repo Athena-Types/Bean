@@ -80,6 +80,13 @@ let rec disc t =
   | TyTensor (t1, t2) -> TyTensor (disc t1, disc t2)
   | _ -> t
 
+let rec linearize t = 
+  match t with
+  | TyPrim PrimDNum -> TyPrim PrimNum
+  | TyUnion (t1, t2) -> TyUnion (linearize t1, linearize t2)
+  | TyTensor (t1, t2) -> TyTensor (linearize t1, linearize t2)
+  | _ -> t
+
 (* Terms *)
 type op = AddOp | MulOp | DivOp | SubOp
 
