@@ -8,7 +8,7 @@ The type checker is based on the implementation due to Arthur Azevedo de Amorim 
 
 ## Install
 
-You need ocaml >= 4.14.1 plus dune and menhir. 
+You need ocaml plus dune and menhir. 
 
 You can obtain everything using the command
 ```
@@ -22,5 +22,5 @@ dune build
 
 Type check an example in the `examples` directory with the following command.
 ```
-dune exec -- bean examples/EXAMPLE.fz
+dune exec -- bean examples/EXAMPLE.be
 ```

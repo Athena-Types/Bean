@@ -17,5 +17,5 @@
 
 (package
  (name bean)
- (synopsis "a type system for backward error analysis")
+ (synopsis "A type system for backward error analysis")
  (depends ocaml menhir))

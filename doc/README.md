@@ -5,7 +5,7 @@ This is the artifact for Bean ("Backward Error Analysis").
 # Getting Started
 
 ### Requirements
-Building Bean requires Dune 3.14.0, OCaml version 4.14.1 with a native compiler, and Menhir version 20220210. 
+Building Bean requires Dune, OCaml, and Menhir. 
 
 ### Running a Bean program
 
@@ -17,56 +17,49 @@ This means that `u` and `v` are real vectors in ℝ²; however, `v` may have bac
 
 The output tells us:
 ```
-I  [General] : Type of the program: ℝ
-               
-I  [General] : Discrete Variables:
-               u : (dℝ ⊗ dℝ)
-               
-I  [General] : Inferred Context:
-               v :[4e-53] (ℝ ⊗ ℝ)
+[General] Type of the program: ℝ    
+[General] Inferred linear context:
+          v :[2.] (ℝ ⊗ ℝ)
 ```
-The return type of `InnerProduct` is `ℝ` and the only discrete variable is `u`. 
+The return type of `InnerProduct` is `ℝ`. 
 The inferred context tells us that our input vector `v` has a backward error bound of `4e-53`.
 (We assume the IEEE 754 double precision standard, though Bean may be instantiated for other values of unit roundoff.)
 Note that for vectors and matrices, we report the maximum element-wise backward error bound. 
 
 # Writing Bean Programs
 
-Bean assumes the interpretation of the numeric type `num` as the set of strictly positive real numbers $\mathbb{R}^{>0}$ with the relative precision (RP) metric given in ________ of the paper. Under this assumption, Bean can generate sound relative error bounds using the analysis described by Olver [44]. 
+Bean assumes the interpretation of the numeric type `num` as the set of strictly positive real numbers $\mathbb{R}^{>0}$ with the relative precision (RP) metric given in Section 2 of the paper. 
+Under this assumption, Bean can generate sound relative error bounds using the analysis described by Olver [44]. 
 
-Soundness of the error bounds inferred by Bean is guaranteed by ________ of the paper and the instantiation of the language described in ________. 
+Soundness of the error bounds inferred by Bean is guaranteed by Section 6.2 of the paper. 
 
 ## Syntax
 
-The syntax of Bean, detailed in ________ of the paper, is as follows. 
+The syntax of Bean, detailed in Section 3 of the paper, is as follows. 
 Some important features are discussed below. 
 Note that term constructors and eliminators are restricted to values (including variables).
 
 ```
-T ::=                                           TYPES
-      ()                                        single-valued unit type
-      num                                       numeric type; only used for linear variables
-      dnum                                      discrete numeric type; only used for discrete variables
-      bool                                      boolean
-      (T, T)                                    tensor product
-      T + T                                     sum
-
-v, w ::=                                        VALUES
-      ()                                        value of unit type
-      (v, w)                                    tensor pairs
-      inl v                                     injection into sum
-      inr v                                     injection into sum
-
-e, f ::=                                        EXPRESSIONS
-      v                                         values
-      let (x, y) = v; e                         linear tensor destructor
-      let (x, y) = v; e                         discrete tensor destructor
-      case v {inl x => e | inr x => f}          case analysis
-      let x = v; e                              monadic sequencing
-      op a b                                    op in (add, mul, sub, div, dmul), a and b are variables
+T ::=                                    TYPES
+      ()                                 single-valued unit type
+      num                                numeric type; only used for linear variables
+      dnum                               discrete numeric type; only used for discrete variables
+      (T, T)                             tensor product
+      T + T                              
+v, w ::=                                 VALUES
+      ()                                 value of unit type
+      (v, w)                             tensor pairs
+      inl v                              injection into sum
+      inr v                              injection into sum
+e, f ::=                                 EXPRESSIONS
+      v                                  values
+      let (x, y) = v; e                  linear tensor destructor
+      dlet (x, y) = v; e                 discrete tensor destructor
+      case v {inl x => e | inr x => f}   case analysis
+      let x = v; e                       monadic sequencing
+      op a b                             op in (add, mul, sub, div, dmul), a and b are variables
 ```
-- **Sequencing**: All computations are explicitly sequenced by let-
-bindings using the syntax `let x = v; e`. 
+- **Sequencing**: All computations are explicitly sequenced by let-bindings using the syntax `let x = v; e`. 
 
 - **Pairs**: The syntax for tensor pairs $− \otimes −$ is `(-, -)` and the syntax for the type is also `(-, -)`. 
 
@@ -81,5 +74,3 @@ All variable names must be distinct and if one context is empty, you must still 
     3. Division `div : num -> num -> num + err`
     4. Subtraction `sub : num -> num -> num`
     5. Discrete multiplication `dmul : dnum -> num -> num`
-
-As usual, the `bool` type is constructed from the sum of units: `bool = () + ()`.

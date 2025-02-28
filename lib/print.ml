@@ -110,13 +110,13 @@ let rec pp_term ppf t =
   | TmDiv (_, x, y) -> fprintf ppf "%a / %a" pp_vinfo x pp_vinfo y
   | TmDMul (_, x, y) -> fprintf ppf "%a d* %a" pp_vinfo x pp_vinfo y
   | TmLet (_, n, _sty, tm1, tm2) ->
-      fprintf ppf "@[<v>@[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n
+      fprintf ppf "@[<v>let @[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n
         pp_term tm1 pp_term tm2
   | TmDLet (_, n, _sty, tm1, tm2) ->
-      fprintf ppf "@[<v>@[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n
+      fprintf ppf "@[<v>dlet @[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n
         pp_term tm1 pp_term tm2
   | TmBind (_, n, _sty, tm1, tm2) ->
-      fprintf ppf "@[<v>@[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n
+      fprintf ppf "@[<v>bind @[<hov>%a =@;<1 1>@[%a@]@];@,@[%a@]@]" pp_binfo n
         pp_term tm1 pp_term tm2
   | TmInl (_, ty, tm_l) ->
       fprintf ppf "inl @[%a@] @[%a@]" pp_type ty pp_term tm_l
