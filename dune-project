@@ -1,2 +1,21 @@
-(lang dune 2.1)
-(using menhir 2.0)
+(lang dune 3.17)
+
+(using menhir 3.0)
+
+(name bean)
+
+(generate_opam_files true)
+
+(source
+ (github Athena-Types/Bean))
+
+(authors "Anonymous")
+
+(maintainers "Anonymous")
+
+(license "MIT")
+
+(package
+ (name bean)
+ (synopsis "a type system for backward error analysis")
+ (depends ocaml menhir))

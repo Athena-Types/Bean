@@ -1,0 +1,4 @@
+(executable
+ (public_name bean)
+ (name bean)
+ (libraries bean))

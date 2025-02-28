@@ -1,9 +1,3 @@
-(* Copyright (c) 2013, The Trustees of the University of Pennsylvania
-   All rights reserved.
-
-   LICENSE: 3-clause BSD style.
-   See the LICENSE file for details on licensing.
-*)
 {
 open Support.FileInfo
 open Support.Error
@@ -41,11 +35,9 @@ let reservedWords = [
   ("bind", fun i -> Parser.BIND i);
   ("dnum", fun i -> Parser.DNUM i);
   ("num", fun i -> Parser.NUM i);
-  ("bool", fun i -> Parser.BOOL i);
 ]
 
 (* Support functions *)
-
 type buildfun = info -> Parser.token
 let (symbolTable : (string, buildfun) Hashtbl.t) = Hashtbl.create 1024
 let _ =
@@ -120,11 +112,6 @@ rule main = parse
 | "# line " ['0'-'9']+
     { lineno := extractLineno (text lexbuf) 7 - 1; getFile lexbuf }
 
-| ['0'-'9']+ '.' ['0'-'9']+
-    { Parser.FLOATV {i = info lexbuf; v = float_of_string (text lexbuf)} }
-
-| "inf" { Parser.INF (info lexbuf) }
-
 | ['A'-'Z' 'a'-'z' '_']
   ['A'-'Z' 'a'-'z' '_' '0'-'9' '\''] *
     { createID (info lexbuf) (text lexbuf) }
@@ -167,8 +154,7 @@ and finishName = parse
   '"' [^ '\n'] * { main lexbuf }
 
 and string = parse
-  '"'  { Parser.STRINGV {i = !startLex; v = getStr()} }
-| '\\' { addStr(escaped lexbuf); string lexbuf }
+  '\\' { addStr(escaped lexbuf); string lexbuf }
 | '\n' { addStr '\n'; newline lexbuf; string lexbuf }
 | eof  { lex_error (!startLex) "String not terminated" }
 | _    { addStr (Lexing.lexeme_char lexbuf 0); string lexbuf }

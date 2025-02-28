@@ -1,0 +1,10 @@
+(library
+ (name bean)
+ (wrapped false)
+ (modules :standard)
+ (libraries unix))
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser))

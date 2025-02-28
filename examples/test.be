@@ -2,5 +2,5 @@
 `{(z : dnum)}
 
 
-bind x = (z, z);
-! x
+let x : num = a;
+x
