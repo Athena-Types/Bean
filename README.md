@@ -1,26 +1,109 @@
 Bean: Backward Error Analysis
 =====
-This is the artifact for Bean, a prototype implementation of the type system and floating-point error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). 
+This is the artifact for Bean, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). 
 
 The type checker is based on the implementation due to Arthur Azevedo de Amorim and co-authors [1].
 
 [1] Arthur Azevedo de Amorim, Marco Gaboardi, Emilio Jesús Gallego Arias, and Justin Hsu. 2014. Really Natural Linear Indexed Type Checking. In Proceedings of the 26nd 2014 International Symposium on Implementation and Application of Functional Languages (IFL '14). Association for Computing Machinery, New York, NY, USA, Article 5, 1–12. https://doi.org/10.1145/2746325.2746335
 
-## Install
+## Getting started 
+`bean` can be built manually or using the provided Docker image.
 
-You need `ocaml >= 5.1.0` plus `dune >= 3.17` and `menhir >= 20240715`. 
+### Build via Docker
 
-If you have opam, you can obtain everything using the command
+In the `bean` directory, run
+```
+docker build -t bean .
+```
+After the Docker image builds, you can enter a TTY with
+```
+docker run -it --rm bean
+```
+
+### Build manually
+
+You need `ocaml >= 5.1` plus `dune >= 3.17` and `menhir >= 20240715`. 
+
+If you have `opam >= 2.3`, you can obtain everything using the command
 ```
 opam install --deps-only .
 ```
 
-Build via dune:
+Build via `dune`:
 ```
 dune build
 ```
+
+## Running a Bean program
 
 Type check an example in the `examples` directory with the following command.
 ```
 dune exec -- bean examples/EXAMPLE.be
 ```
+
+For example, run the `InnerProduct` Bean program as follows: `dune exec -- bean examples/InnerProduct.be`. 
+
+In Bean, programs start with a list of input variables which may be *linear* or *discrete*. 
+The sole linear input to `InnerProduct` is `v : (num, num)` and the sole discrete input is `u : (dnum, dnum)`.
+This means that `u` and `v` are real vectors in ℝ²; however, `v` may have backward error while `u` may not.
+
+The output tells us:
+```
+[General] Type of the program: ℝ    
+[General] Inferred linear context:
+          v :[2.] (ℝ ⊗ ℝ)
+```
+The return type of `InnerProduct` is `ℝ`. 
+The inferred context tells us that our input vector `v` has a backward error bound of `4e-53`.
+(We assume the IEEE 754 double precision standard, though Bean may be instantiated for other values of unit roundoff.)
+Note that for vectors and matrices, we report the maximum element-wise backward error bound. 
+
+# Writing Bean Programs
+
+Bean assumes the interpretation of the numeric type `num` as the set of strictly positive real numbers $\mathbb{R}^{>0}$ with the relative precision (RP) metric given in Section 2 of the paper. 
+Under this assumption, Bean can generate sound relative error bounds using the analysis described by Olver [44]. 
+
+Soundness of the error bounds inferred by Bean is guaranteed by Section 6.2 of the paper. 
+
+## Syntax
+
+The syntax of Bean, detailed in Section 3 of the paper, is as follows. 
+Some important features are discussed below. 
+Note that term constructors and eliminators are restricted to values (including variables).
+
+```
+T ::=                                    TYPES
+      ()                                 single-valued unit type
+      num                                numeric type; only used for linear variables
+      dnum                               discrete numeric type; only used for discrete variables
+      (T, T)                             tensor product
+      T + T                              
+v, w ::=                                 VALUES
+      ()                                 value of unit type
+      (v, w)                             tensor pairs
+      inl v                              injection into sum
+      inr v                              injection into sum
+e, f ::=                                 EXPRESSIONS
+      v                                  values
+      let (x, y) = v; e                  linear tensor destructor
+      dlet (x, y) = v; e                 discrete tensor destructor
+      case v {inl x => e | inr x => f}   case analysis
+      let x = v; e                       monadic sequencing
+      op a b                             op in (add, mul, sub, div, dmul), a and b are variables
+```
+- **Sequencing**: All computations are explicitly sequenced by let-bindings using the syntax `let x = v; e`. 
+
+- **Pairs**: The syntax for tensor pairs $− \otimes −$ is `(-, -)` and the syntax for the type is also `(-, -)`. 
+
+- **Linear and discrete inputs**: At the beginning of our programs, we write `{(ID1 : Type1) (ID2 : Type)}` to denote the 
+context of linear variables. Next, we write ``{(ID3 : DType) (ID4 : DType)}` to denote the context of discrete variables.
+All variable names must be distinct and if one context is empty, you must still include the empty braces `{}` or ``{}`.
+
+- **Primitive Operations**: The type signature and name of each primitive operation is given below. 
+    
+    1. Addition `add : num -> num -> num`
+    2. Multiplication `mult : num -> num -> num`
+    3. Division `div : num -> num -> num + err`
+    4. Subtraction `sub : num -> num -> num`
+    5. Discrete multiplication `dmul : dnum -> num -> num`
+

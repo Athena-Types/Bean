@@ -13,7 +13,7 @@
 
 (maintainers "Anonymous")
 
-(license "GPL-3.0")
+(license "GPL-3.0-or-later")
 
 (package
  (name bean)
@@ -22,4 +22,4 @@
   (ocaml 
    (>= 5.1)) 
   (menhir
-   (>= "20240715"))))
+   (>= 20240715))))

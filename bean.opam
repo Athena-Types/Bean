@@ -3,7 +3,7 @@ opam-version: "2.0"
 synopsis: "A type system for backward error analysis"
 maintainer: ["Anonymous"]
 authors: ["Anonymous"]
-license: "GPL-3.0"
+license: "GPL-3.0-or-later"
 homepage: "https://github.com/Athena-Types/Bean"
 bug-reports: "https://github.com/Athena-Types/Bean/issues"
 depends: [
