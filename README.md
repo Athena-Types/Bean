@@ -8,11 +8,11 @@ The type checker is based on the implementation due to Arthur Azevedo de Amorim 
 
 ## Install
 
-You need ocaml plus dune and menhir. 
+You need `ocaml >= 5.1.0` plus `dune >= 3.17` and `menhir >= 20240715`. 
 
-You can obtain everything using the command
+If you have opam, you can obtain everything using the command
 ```
-opam install --deps-only -d -t .
+opam install --deps-only .
 ```
 
 Build via dune:

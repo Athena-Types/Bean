@@ -13,9 +13,13 @@
 
 (maintainers "Anonymous")
 
-(license "MIT")
+(license "GPL-3.0")
 
 (package
  (name bean)
  (synopsis "A type system for backward error analysis")
- (depends ocaml menhir))
+ (depends 
+  (ocaml 
+   (>= 5.1)) 
+  (menhir
+   (>= "20240715"))))
