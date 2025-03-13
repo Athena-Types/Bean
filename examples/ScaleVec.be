@@ -5,8 +5,8 @@
     Computes a * x where x is in R^2.
 */
 
-let (x1, x2) = x;
+let (x0, x1) = x;
 
-let u = dmul a x1;
-let v = dmul a x2;
+let u = dmul a x0;
+let v = dmul a x1;
 (u, v)

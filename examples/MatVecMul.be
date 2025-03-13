@@ -6,19 +6,19 @@
     v is a vector in R^2.
 */
 
-let (M1, M2) = M;
-let (M11, M12) = M1;
-let (M21, M22) = M2;
-dlet (v1, v2) = v;
+let (m0, m1) = M;
+dlet (v0, v1) = v;
 
-/* let u1 = InnerProduct M1 v */ 
-let x1 = dmul v1 M11;
-let x2 = dmul v2 M12;
-let u1 = add x1 x2;
+/* let u0 = InnerProduct m0 v */ 
+let (m00, m01) = m0;
+let x0 = dmul v0 m00;
+let x1 = dmul v1 m01;
+let u0 = add x0 x1;
 
-/* let u2 = InnerProduct M2 v */ 
-let y1 = dmul v1 M21;
-let y2 = dmul v2 M22;
-let u2 = add y1 y2;
+/* let u1 = InnerProduct m1 v */ 
+let (m10, m11) = m1;
+let y0 = dmul v0 m10;
+let y1 = dmul v1 m11;
+let u1 = add y0 y1;
 
-(u1, u2)
+(u0, u1)

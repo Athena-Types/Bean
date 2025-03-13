@@ -54,15 +54,15 @@ let fail (i : info) (e : ty_error_elem) : 'a checker =
  fun _ _ -> Left { i; v = e }
 
 module TypeSub = struct
-  let check_prim_eq (i : info) (ty_f : ty_prim) (ty_a : ty_prim) : ty checker =
-    if ty_f = ty_a then return (TyPrim ty_f)
+  let check_prim_eq (i : info) (ty_f : ty_prim) (ty_a : ty_prim) : unit checker =
+    if ty_f = ty_a then return ()
     else fail i @@ TypeMismatch (TyPrim ty_f, TyPrim ty_a)
 
-  let rec check_type_eq (i : info) (ty_1 : ty) (ty_2 : ty) : ty checker =
+  let rec check_type_eq (i : info) (ty_1 : ty) (ty_2 : ty) : unit checker =
     match (ty_1, ty_2) with
     | TyPrim p1, TyPrim p2 -> check_prim_eq i p1 p2
     | TyUnion (tyl1, tyl2), TyUnion (tyr1, tyr2) ->
-        check_type_eq i tyl1 tyr1 >> check_type_eq i tyl2 tyr2
+        check_type_eq i tyl1 tyr1 >> check_type_eq i tyl2 tyr2 
     | TyTensor (tyl1, tyl2), TyTensor (tyr1, tyr2) ->
         check_type_eq i tyl1 tyr1 >> check_type_eq i tyl2 tyr2
     | _, _ -> fail i @@ TypeMismatch (ty_1, ty_2)
@@ -253,15 +253,14 @@ let rec type_of (t : term) : (ty * obe list) checker =
       with_extended_ctx i b_y.b_name ty2 (type_of f_r)
       >>= fun (tyr, si_y, ctx_r) ->
       (* check that e_l and f_r have the same type *)
-      check_type_eq i tyl tyr >>= fun ty_exp ->
+      check_type_eq i tyl tyr >>
       (* check that domains are disjoint *)
       check_disjoint_let i b_x.b_name ctx_v ctx_l
       >> check_disjoint_let i b_y.b_name ctx_v ctx_r
-      >>
-      let be = lub_obe si_x si_y in
+      >> let be = lub_obe si_x si_y in
       (* non-disjoint union of left and right contexts *)
       let ctx_union = union_ctx ctx_l ctx_r in
-      return (ty_exp, union_ctx (shift_err be ctx_v) ctx_union)
+      return (tyl, union_ctx (shift_err be ctx_v) ctx_union)
   (* Ops *)
   | TmAdd (i, x, y) ->
       check_prim_num i x >> check_prim_num i y >> get_ctx_length >>= fun len ->
