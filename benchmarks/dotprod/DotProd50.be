@@ -1,5 +1,5 @@
-{(v : (num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num))}
 {(w : (dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum, dnum))}
+{(v : (num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num, num))}
 
 let (v_1, v'_1) = v;
 let (v_2, v'_2) = v'_1;

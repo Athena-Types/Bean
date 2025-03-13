@@ -1,5 +1,5 @@
-{(x : (num, num)) (y : (num, num))}
 {(a : dnum)}
+{(x : (num, num)) (y : (num, num))}
 
 /* 
     Computes a * x + y where x and y are vectors in R^2.

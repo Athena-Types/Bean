@@ -1,5 +1,5 @@
-{(a : (num, num, num))}
 {(z : dnum)}
+{(a : (num, num, num))}
 
 /*
     Computes a0 + a1 * z + a2 * z^2 using Horner's method.

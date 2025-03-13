@@ -1,8 +1,8 @@
-{(a0 : num) (a1 : num) (a2 : num)}
 {(z : dnum)}
+{(a0 : num) (a1 : num) (a2 : num)}
 
 /* 
-    Naively evaluates the polynomial a0 + a1z + a2z^2
+    Naively evaluates the polynomial a0 + a1z + a2z^2.
 */
 
 let y1 = dmul z a1;

@@ -1,8 +1,8 @@
-{(a : (num, num, num))}
 {(z : dnum)}
+{(a : (num, num, num))}
 
 /* 
-    Naively evaluates the polynomial a0 + a1z + a2z^2
+    Naively evaluates the polynomial a0 + a1z + a2z^2.
 */
 
 let (a0, a') = a;

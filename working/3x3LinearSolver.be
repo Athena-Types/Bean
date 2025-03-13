@@ -1,5 +1,5 @@
-{(A : ((num, num, num), (num, num, num), (num, num, num))) (b : (num, num, num))}
 {}
+{(A : ((num, num, num), (num, num, num), (num, num, num))) (b : (num, num, num))}
 
 /* 
     Suppose Ax = b where A is a 3x3 matrix as follows:

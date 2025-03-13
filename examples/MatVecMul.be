@@ -1,5 +1,5 @@
-{(M : ((num, num), (num, num)))}
 {(v : (dnum, dnum))}
+{(M : ((num, num), (num, num)))}
 
 /*
     Computes M * v, where M is a 2x2 matrix and 

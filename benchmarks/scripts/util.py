@@ -23,14 +23,14 @@ def mat_type(n):
 def dmat_type(n):
     return vec_type(n, vec_type(n, "dnum"))
 
-# Linear context
-def linear_ctx(vars: list[str, str]):
+# Discrete context
+def discrete_ctx(vars: list[(str, str)]):
     fmt = [f"({v} : {t})" for (v, t) in vars]
     return "{" + " ".join(fmt) + "}\n"
 
-# Discrete context
-def discrete_ctx(vars: list[(str, str)]):
-    return linear_ctx(vars) + "\n"
+# Linear context
+def linear_ctx(vars: list[str, str]):
+    return discrete_ctx(vars) + "\n"
 
 # Unpack a vector
 def unpack_vec(vec: str, n: int, temp: str, discrete: bool = False):

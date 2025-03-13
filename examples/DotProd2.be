@@ -1,5 +1,5 @@
-{(x : (num, num)) (y : (num, num))}
 {}
+{(x : (num, num)) (y : (num, num))}
 
 /* 
     Dot product of vectors x and y in R^2.

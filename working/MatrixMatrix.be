@@ -1,5 +1,5 @@
-{(B : ((num, num), (num, num)))}
 {(A : ((dnum, dnum), (dnum, dnum)))}
+{(B : ((num, num), (num, num)))}
 
 /* 
     Computes the product AB where A and B are 2x2 matrices

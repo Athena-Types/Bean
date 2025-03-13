@@ -1,5 +1,5 @@
-{(M : ((num, num), (num, num))) (u : (num, num))}
 {(v : (dnum, dnum)) (a : dnum) (b : dnum)}
+{(M : ((num, num), (num, num))) (u : (num, num))}
 
 /* 
     Computes a * M * v + b * u where M is a 2x2 matrix and

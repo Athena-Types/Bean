@@ -1,5 +1,5 @@
-{(A : ((num, num), (num, num))) (b : (num, num))}
 {}
+{(A : ((num, num), (num, num))) (b : (num, num))}
 
 /* 
     Suppose Ax = b where A is a 2x2 lower triangular matrix and 

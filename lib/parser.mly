@@ -91,8 +91,8 @@ let rec check_type (linear : bool) (v, ty) =
 
 body :
   LBRACE TyArguments RBRACE LBRACE TyArguments RBRACE Term EOF
-  { let ctx_args = ($2 empty_context) in
-    let ctx_dargs = ($5 empty_context) in
+  { let ctx_dargs = ($2 empty_context) in
+    let ctx_args = ($5 empty_context) in
     let _ = check_distinct ctx_args ctx_dargs in
     let _ = List.map (check_type true) ctx_args in
     let _ = List.map (check_type false) ctx_dargs in
