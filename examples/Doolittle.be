@@ -1,5 +1,5 @@
 {(A : ((num, num), (num, num))) (b : (num, num))}
-`{}
+{}
 
 /* 
     Doolittle's method returns an LU decomposition as follows:

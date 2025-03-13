@@ -1,5 +1,5 @@
 {(a : (num, num))} 
-`{(z : dnum)}
+{(z : dnum)}
 
 /*
     Computes a0 + a1 * z.

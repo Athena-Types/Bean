@@ -1,5 +1,5 @@
 {(v : (num, num, num))} 
-`{}
+{}
 
 /* 
     Sums the elements of a vector in R^3.

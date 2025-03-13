@@ -1,6 +1,6 @@
 {(a : num) (b : num) (c : num)}
-`{(z : dnum)}
+{(z : dnum)}
 
 
-let x : num = a;
+let x = (let y = add a b; (y, c));
 x

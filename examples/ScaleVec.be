@@ -1,5 +1,5 @@
 {(x : (num, num))}
-`{(a : dnum)}
+{(a : dnum)}
 
 /*
     Computes a * x where x is in R^2.

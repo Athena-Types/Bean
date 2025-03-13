@@ -1,5 +1,5 @@
 {(A : ((num, num), (num, num)))}
-`{}
+{}
 
 /* 
     Calculate the determinant of a 2x2 matrix.

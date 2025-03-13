@@ -1,5 +1,5 @@
 {(M : ((num, num, num), (num, num, num), (num, num, num)))}
-`{(v : (dnum, dnum, dnum))}
+{(v : (dnum, dnum, dnum))}
 
 let (M_1, Y_1) = M;
 let (M_2, M_3) = Y_1;

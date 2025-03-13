@@ -81,7 +81,6 @@ let rec check_type (linear : bool) (v, ty) =
 %token <Support.FileInfo.info> RPAREN
 %token <Support.FileInfo.info> SEMI
 %token <Support.FileInfo.info> SUBOP
-%token <Support.FileInfo.info> TICK
 %token <Support.FileInfo.info> UNIONCASE
 
 %token <string Support.FileInfo.withinfo> ID
@@ -91,13 +90,13 @@ let rec check_type (linear : bool) (v, ty) =
 %%
 
 body :
-  LBRACE TyArguments RBRACE TICK LBRACE TyArguments RBRACE Term EOF
+  LBRACE TyArguments RBRACE LBRACE TyArguments RBRACE Term EOF
   { let ctx_args = ($2 empty_context) in
-    let ctx_dargs = ($6 empty_context) in
+    let ctx_dargs = ($5 empty_context) in
     let _ = check_distinct ctx_args ctx_dargs in
     let _ = List.map (check_type true) ctx_args in
     let _ = List.map (check_type false) ctx_dargs in
-    (ctx_args, ctx_dargs, $8 ctx_args ctx_dargs)
+    (ctx_args, ctx_dargs, $7 ctx_args ctx_dargs)
   }
 
 Term :

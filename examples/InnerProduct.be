@@ -1,5 +1,5 @@
 {(v : (num, num))}
-`{(u : (dnum, dnum))}
+{(u : (dnum, dnum))}
 
 /* 
     Computes the inner product of two vectors in R^2.

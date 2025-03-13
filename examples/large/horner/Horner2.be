@@ -1,5 +1,5 @@
 {(a : (num, num, num))}
-`{(z : dnum)}
+{(z : dnum)}
 
 let (a_1, b_1) = a;
 let (a_2, a_3) = b_1;

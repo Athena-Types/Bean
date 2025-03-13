@@ -1,5 +1,5 @@
 {(A : ((num, num), (num, num))) (u : (num, num))}
-`{(a : dnum) (b : dnum) (v : (dnum, dnum))}
+{(a : dnum) (b : dnum) (v : (dnum, dnum))}
 
 /*
     Computes "gemv", aAv + bu where A is a 2x2 matrix,

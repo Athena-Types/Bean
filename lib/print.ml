@@ -46,7 +46,7 @@ let machine_eps = 2. ** -53.
 
 let rec pp_be fmt s =
   match s with
-  | BeConst flt -> fprintf fmt "[%s]" (string_of_float flt)
+  | BeConst flt -> fprintf fmt "[%.2e]" (flt *. machine_eps)
   | BeAdd (e1, e2) -> fprintf fmt "(%a + %a)" pp_be e1 pp_be e2
   | BeLub (e1, e2) ->
       fprintf fmt "(%a @<1>%s %a)" pp_be e1 (u_sym Symbols.Lub) pp_be e2

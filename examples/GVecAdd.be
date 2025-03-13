@@ -1,5 +1,5 @@
 {(x : (num, num)) (y : (num, num))}
-`{(a : dnum)}
+{(a : dnum)}
 
 /*
     Computes "axpy", ax + y where x, y are in R^2.

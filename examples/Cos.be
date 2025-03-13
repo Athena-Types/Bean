@@ -1,4 +1,4 @@
-{(a : (num,num,num,num,num))} `{(z:dnum)}
+{(a : (num,num,num,num,num))} {(z:dnum)}
 
 let (s1,b1) = a;
 let (s2,b2) = b1;

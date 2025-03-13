@@ -1,5 +1,5 @@
 {(v : (num, num, num))}
-`{}
+{}
 
 let (v_1, y_1) = v;
 let (v_2, v_3) = y_1;
