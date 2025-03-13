@@ -1,6 +1,8 @@
 Bean: Backward Error Analysis
 =====
-This is the artifact for Bean, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). 
+This is the artifact for `bean`, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). 
+
+The examples shown in the paper can be found under `examples/`. The benchmarks from the paper can be found under `examples/large/`.
 
 The type checker is based on the implementation due to Arthur Azevedo de Amorim and co-authors [1].
 
@@ -40,10 +42,12 @@ dune build
 
 ## Running a Bean program
 
-Type check an example in the `examples` directory with the following command.
+Type check an example with the following command.
 ```
 dune exec -- bean examples/EXAMPLE.be
 ```
+Turn on debug output with the flag `--debug` or `d`, and 
+disable unicode printing with the flag `--disable-unicode`.
 
 For example, run the `InnerProduct` Bean program as follows: 
 ```
@@ -53,7 +57,7 @@ dune exec -- bean examples/InnerProduct.be
 The program looks like this:
 ```
 {(v : (num, num))}
-`{(u : (dnum, dnum))}
+{(u : (dnum, dnum))}
 
 /* 
     Computes the inner product of two vectors in R^2.
@@ -71,7 +75,7 @@ add x y
 The sole linear input to `InnerProduct` is `v : (num, num)` and the sole discrete input is `u : (dnum, dnum)`.
 This means that `u` and `v` are real vectors in ℝ²; however, `v` may have backward error while `u` may not.
 
-The output tells us:
+The output is:
 ```
 [General] Type of the program: ℝ
 [General] Inferred linear context:
@@ -83,7 +87,7 @@ The inferred context tells us that our input vector `v` has a backward error bou
 
 **This means that there exists a vector $\tilde{v}$, where $|\ln(v/\tilde{v})|\leq 2.22\cdot 10^{-16}$, such that $\tilde{v}\cdot u=$`InnerProduct v u`.**
 
-We assume the IEEE 754 double precision standard, with a machine epsilon of `2e-53`, though Bean may be instantiated for other values of unit roundoff.
+We assume the IEEE 754 double precision standard, with a unit roundoff of `2e-53`, though Bean may be instantiated for other values.
 Note that for vectors and matrices, we report the maximum element-wise backward error bound. 
 
 ## Writing a Bean program
@@ -95,31 +99,38 @@ Soundness of the error bounds inferred by Bean is guaranteed by Section 6.2 of t
 ### Syntax
 
 The syntax of Bean, detailed in Section 3 of the paper, is as follows. 
-Some important features are discussed below. 
-Note that term constructors and eliminators are restricted to values (including variables).
 
 ```
+DT ::=                                   DISCRETE TYPES
+      dnum                               discrete numeric type
+      (DT, DT)                           discrete tensor product
+      DT + DT                            discrete sum type
+
 T ::=                                    TYPES
+      DT                                 discrete types
       ()                                 single-valued unit type
-      num                                numeric type; only used for linear variables
-      dnum                               discrete numeric type; only used for discrete variables
+      num                                numeric type
       (T, T)                             tensor product
-      T + T                              
+      T + T                              sum type
+
 v, w ::=                                 VALUES
       ()                                 value of unit type
       a                                  variables
       (v, w)                             tensor pairs
       inl v                              injection into sum
       inr v                              injection into sum
-      op a b                             op in (add, mul, sub, div, dmul), a and b are variables
-      ! x                                !-constructor, where x is linear
+      !x                                 !-constructor, where x is linear
+
 e, f ::=                                 EXPRESSIONS
       v                                  values
       let (x, y) = v; e                  linear tensor destructor
       dlet (x, y) = v; e                 discrete tensor destructor
       case v {inl x => e | inr x => f}   case analysis
-      let x = v; e                       monadic sequencing, where v is linear
-      dlet x = v; e                      monadic sequencing, where v is discrete
+      let x = e; f                       monadic sequencing, where v is linear
+      let x : T = e; f                   monadic sequencing with optional type annotation
+      dlet x = e; f                      monadic sequencing, where v is discrete
+      dlet x : t = e; f                  monadic sequencing with optional type annotation
+      op a b                             op in (add, mul, sub, div, dmul), a and b are variables
 ```
 - **Sequencing**: All computations are explicitly sequenced by let-bindings using the syntax `let x = v; e`. 
 
