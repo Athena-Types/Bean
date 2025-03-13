@@ -2,5 +2,5 @@
 {(z : dnum)}
 
 
-let x = (let y = add a b; c);
-(x, d)
+let x = z;
+add x b

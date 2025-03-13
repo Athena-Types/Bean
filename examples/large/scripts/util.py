@@ -30,7 +30,7 @@ def linear_ctx(vars: list[str, str]):
 
 # Discrete context
 def discrete_ctx(vars: list[(str, str)]):
-    return "`" + linear_ctx(vars) + "\n"
+    return linear_ctx(vars) + "\n"
 
 # Unpack a vector
 def unpack_vec(vec: str, n: int, temp: str, discrete: bool = False):

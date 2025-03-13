@@ -1,8 +1,8 @@
 Bean: Backward Error Analysis
 =====
-This is the artifact for `bean`, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). 
+This is the artifact for `bean`, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). It implements the algorithm from Section 5.1.
 
-The examples shown in the paper can be found under `examples/`. The benchmarks from the paper can be found under `examples/large/`.
+The examples shown in Section 4 can be found under `examples/`. The benchmarks from Section 5.2 can be found under `examples/large/`.
 
 The type checker is based on the implementation due to Arthur Azevedo de Amorim and co-authors [1].
 
@@ -42,11 +42,11 @@ dune build
 
 ## Running a Bean program
 
-Type check an example with the following command.
+Type check an example with the following command:
 ```
 dune exec -- bean examples/EXAMPLE.be
 ```
-Turn on debug output with the flag `--debug` or `d`, and 
+Turn on debug output with the flag `--debug` or `-d`, and 
 disable unicode printing with the flag `--disable-unicode`.
 
 For example, run the `InnerProduct` Bean program as follows: 
@@ -101,36 +101,36 @@ Soundness of the error bounds inferred by Bean is guaranteed by Section 6.2 of t
 The syntax of Bean, detailed in Section 3 of the paper, is as follows. 
 
 ```
-DT ::=                                   DISCRETE TYPES
-      dnum                               discrete numeric type
-      (DT, DT)                           discrete tensor product
-      DT + DT                            discrete sum type
+DT ::=                                 DISCRETE TYPES
+    dnum                               discrete numeric type
+    (DT, DT)                           discrete tensor product
+    DT + DT                            discrete sum type
 
-T ::=                                    TYPES
-      DT                                 discrete types
-      ()                                 single-valued unit type
-      num                                numeric type
-      (T, T)                             tensor product
-      T + T                              sum type
+T ::=                                  TYPES
+    DT                                 discrete types
+    ()                                 single-valued unit type
+    num                                numeric type
+    (T, T)                             tensor product
+    T + T                              sum type
 
-v, w ::=                                 VALUES
-      ()                                 value of unit type
-      a                                  variables
-      (v, w)                             tensor pairs
-      inl v                              injection into sum
-      inr v                              injection into sum
-      !x                                 !-constructor, where x is linear
+v, w ::=                               VALUES
+    ()                                 value of unit type
+    a                                  variables
+    (v, w)                             tensor pairs
+    inl v                              injection into sum
+    inr v                              injection into sum
+    !x                                 !-constructor, where x is linear
 
-e, f ::=                                 EXPRESSIONS
-      v                                  values
-      let (x, y) = v; e                  linear tensor destructor
-      dlet (x, y) = v; e                 discrete tensor destructor
-      case v {inl x => e | inr x => f}   case analysis
-      let x = e; f                       monadic sequencing, where v is linear
-      let x : T = e; f                   monadic sequencing with optional type annotation
-      dlet x = e; f                      monadic sequencing, where v is discrete
-      dlet x : t = e; f                  monadic sequencing with optional type annotation
-      op a b                             op in (add, mul, sub, div, dmul), a and b are variables
+e, f ::=                               EXPRESSIONS
+    v                                  values
+    let (x, y) = v; e                  linear tensor destructor
+    dlet (x, y) = v; e                 discrete tensor destructor
+    case v {inl x => e | inr x => f}   case analysis
+    let x = e; f                       monadic sequencing, where e is linear
+    let x : T = e; f                   monadic sequencing with type annotation
+    dlet x = e; f                      monadic sequencing, where e is discrete
+    dlet x : DT = e; f                 monadic sequencing with type annotation
+    op a b                             op in (add, mul, sub, div, dmul), a and b are variables
 ```
 - **Sequencing**: All computations are explicitly sequenced by let-bindings using the syntax `let x = v; e`. 
 
