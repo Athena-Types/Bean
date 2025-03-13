@@ -2,7 +2,7 @@ Bean: Backward Error Analysis
 =====
 This is the artifact for `bean`, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). It implements the algorithm from Section 5.1.
 
-The examples shown in Section 4 can be found under `examples/`. The benchmarks from Section 5.2 can be found under `examples/large/`.
+The examples shown in Section 4 can be found under `examples/`. The benchmarks from Section 5.2 can be found under `benchmarks/`.
 
 The type checker is based on the implementation due to Arthur Azevedo de Amorim and co-authors [1].
 
@@ -46,18 +46,19 @@ Type check an example with the following command:
 ```
 dune exec -- bean examples/EXAMPLE.be
 ```
-Turn on debug output with the flag `--debug` or `-d`, and 
-disable unicode printing with the flag `--disable-unicode`.
+- Turn on debug output with the flag `--debug` or `-d`.
+- Disable unicode printing with the flag `--disable-unicode`.
+- Set unit roundoff to `2^(-n)` with the flag `--unit-roundoff <n>` or `-u <n>`. Without this flag, we give the backward error bounds in terms of `ε`, where `ε = u / (1 - u)` and `u` is unit roundoff.
 
-For example, run the `InnerProduct` Bean program as follows: 
+For example, run the `InnerProduct` Bean program with IEEE 754 double precision arithmetic as follows: 
 ```
-dune exec -- bean examples/InnerProduct.be
+dune exec -- bean examples/InnerProduct.be -u 53
 ```
 
 The program looks like this:
 ```
-{(v : (num, num))}
 {(u : (dnum, dnum))}
+{(v : (num, num))}
 
 /* 
     Computes the inner product of two vectors in R^2.
@@ -70,10 +71,8 @@ let x = dmul u1 v1;
 let y = dmul u2 v2;
 add x y
 ```
-
-`bean` programs start with a list of input variables which may be *linear* or *discrete*. 
-The sole linear input to `InnerProduct` is `v : (num, num)` and the sole discrete input is `u : (dnum, dnum)`.
-This means that `u` and `v` are real vectors in ℝ²; however, `v` may have backward error while `u` may not.
+`bean` programs start with two lists of input variables: those that are *discrete* followed by those that are *linear*. The sole discrete input to `InnerProduct` is `u : (dnum, dnum)` while the sole linear input is `v : (num, num)`.
+In a nutshell, this means that `u` and `v` are real vectors in ℝ²; however, `v` may have backward error while `u` may not.
 
 The output is:
 ```

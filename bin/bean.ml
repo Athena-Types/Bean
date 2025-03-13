@@ -15,6 +15,12 @@ let argDefs =
       Arg.Unit
         (fun () -> debug_options := { !debug_options with unicode = false }),
       " Disable unicode printing" );
+    ( "--unit-roundoff",
+      Arg.Int (fun n -> debug_options := { !debug_options with roundoff = Some n }), 
+      " Set a unit roundoff value, 2^(-n)" );
+    ( "-u",
+      Arg.Int (fun n -> debug_options := { !debug_options with roundoff = Some n }), 
+      " Set a unit roundoff value, 2^(-n)" );
   ]
 
 let dp = Support.FileInfo.dummyinfo

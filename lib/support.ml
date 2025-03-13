@@ -5,9 +5,10 @@ module Options = struct
   type debug_options = {
     debug : bool; (* Show debug output  *)
     unicode : bool; (* Use unicode output *)
+    roundoff : int option; (* Set unit roundoff *)
   }
 
-  let debug_default = { debug = false; unicode = true }
+  let debug_default = { debug = false; unicode = true; roundoff = None }
   let debug_options = ref debug_default
 end
 

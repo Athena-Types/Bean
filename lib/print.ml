@@ -42,11 +42,15 @@ let pp_vinfo fmt v = fprintf fmt "%a" pp_name v.v_name
 let pp_binfo fmt b = pp_name fmt b.b_name
 
 (* Pretty printing for errors *)
-let machine_eps = 2. ** -53.
-
 let rec pp_be fmt s =
   match s with
-  | BeConst flt -> fprintf fmt "[%s]" (string_of_float flt)
+  | BeConst flt -> 
+    (match !debug_options.roundoff with
+      None -> fprintf fmt "[%s%s]" (string_of_float flt) (u_sym Symbols.Eps)
+    | Some n -> 
+        let u = 2. ** (float_of_int (-n)) in
+        let eps = u /. (1. -. u) in
+        fprintf fmt "[%.2e]" (flt *. eps))
   | BeAdd (e1, e2) -> fprintf fmt "(%a + %a)" pp_be e1 pp_be e2
   | BeLub (e1, e2) ->
       fprintf fmt "(%a @<1>%s %a)" pp_be e1 (u_sym Symbols.Lub) pp_be e2
