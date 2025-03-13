@@ -86,12 +86,11 @@ The inferred context tells us that our input vector `v` has a backward error bou
 
 **This means that there exists a vector $\tilde{v}$, where $|\ln(v/\tilde{v})|\leq 2.22\cdot 10^{-16}$, such that $u\cdot\tilde{v}=$`InnerProduct u v`.**
 
-We assume the IEEE 754 double precision standard, with a unit roundoff of `2e-53`, though Bean may be instantiated for other values.
 Note that for vectors and matrices, we report the maximum element-wise backward error bound. 
 
 ## Writing a Bean program
 
-`bean` assumes the interpretation of the numeric type `num` as the set of real numbers $\mathbb{R}$ with the relative precision (RP) metric given in Section 2 of the paper. 
+`bean` assumes the interpretation of the numeric type `num` as the set of real numbers ℝ with the relative precision (RP) metric given in Section 2 of the paper. 
 Under this assumption, Bean can generate sound relative error bounds using the analysis described by Olver [44]. 
 Soundness of the error bounds inferred by Bean is guaranteed by Section 6.2 of the paper. 
 
