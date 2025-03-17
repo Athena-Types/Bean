@@ -1,6 +1,6 @@
 Bean: Backward Error Analysis
 =====
-This is the artifact for `bean`, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). It implements the algorithm given in Section 5.1. 
+This is the artifact for Bean, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). It implements the algorithm given in Section 5.1. 
 
 The examples given in Section 4 can be found under `examples/`. The benchmarks from Section 5.2 can be found under `benchmarks/`.
 
@@ -9,7 +9,7 @@ The type checker is based on the implementation due to Arthur Azevedo de Amorim 
 [1] Arthur Azevedo de Amorim, Marco Gaboardi, Emilio Jesús Gallego Arias, and Justin Hsu. 2014. Really Natural Linear Indexed Type Checking. In Proceedings of the 26nd 2014 International Symposium on Implementation and Application of Functional Languages (IFL '14). Association for Computing Machinery, New York, NY, USA, Article 5, 1–12. https://doi.org/10.1145/2746325.2746335
 
 ## Getting started 
-`bean` can be built manually or using the provided Docker image.
+Bean can be built manually or using the provided Docker image.
 
 ### Build via Docker
 
@@ -35,7 +35,7 @@ or, in the `bean` directory, you can obtain everything with
 opam install --deps-only .
 ```
 
-Build `bean` via `dune`:
+Build Bean via `dune`:
 ```
 dune build
 ```
@@ -71,7 +71,7 @@ let x = dmul u1 v1;
 let y = dmul u2 v2;
 add x y
 ```
-`bean` programs start with two lists of input variables: those that are *discrete* followed by those that are *linear*. The sole discrete input to `InnerProduct` is `u : (dnum, dnum)` while the sole linear input is `v : (num, num)`.
+Bean programs start with two lists of input variables: those that are *discrete* followed by those that are *linear*. The sole discrete input to `InnerProduct` is `u : (dnum, dnum)` while the sole linear input is `v : (num, num)`.
 In a nutshell, this means that `u` and `v` are real vectors in ℝ²; however, `v` may have backward error while `u` may not.
 
 The output is:
@@ -105,7 +105,7 @@ to remove the `benchmarks.txt` file and other generated Dune files.
 
 ## Writing a Bean program
 
-`bean` assumes the interpretation of the numeric type `num` as the set of real numbers ℝ with the relative precision (RP) metric given in Section 2 of the paper. 
+Bean assumes the interpretation of the numeric type `num` as the set of real numbers ℝ with the relative precision (RP) metric given in Section 2 of the paper. 
 Under this assumption, Bean can generate sound relative error bounds using the analysis described by Olver [44]. 
 Soundness of the error bounds inferred by Bean is guaranteed by Section 6.2 of the paper. 
 

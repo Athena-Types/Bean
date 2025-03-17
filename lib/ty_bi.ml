@@ -206,16 +206,6 @@ let rec type_of (t : term) : (ty * obe list) checker =
       >>= fun (ty_f, ctx_f) ->
       check_disjoint_let i z.b_name ctx_e ctx_f
       >> return (ty_f, union_ctx ctx_e ctx_f)
-  (* bind (x : oty_x) = e in f *)
-  | TmBind (i, x, oty_x, tm_e, tm_f) ->
-      type_of tm_e >>= fun (ty_e, ctx_e) ->
-      check_maybe_type_eq i (disc_obe oty_x) ty_e
-      >> check_disc_ty i ty_e
-      >> with_extended_ctx i x.b_name (linear ty_e) (type_of tm_f)
-      >>= fun (ty_f, si_x, ctx_f) ->
-      check_disc_ty i ty_f >> check_none i x.b_name si_x
-      >> check_disjoint_let i x.b_name ctx_e ctx_f
-      >> return (ty_f, union_ctx ctx_e ctx_f)
   (* Tensor product*)
   | TmTens (i, tm_e, tm_f) ->
       type_of tm_e >>= fun (ty_e, ctx_e) ->
