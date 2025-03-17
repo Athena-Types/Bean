@@ -1,9 +1,10 @@
-{(a : (num,num,num,num,num))} {(z:dnum)}
+{(z : dnum)} 
+{(a : (num, num, num, num, num))}
 
-let (s1,b1) = a;
-let (s2,b2) = b1;
-let (s3,b3) = b2;
-let (s4,s5) = b3;
+let (s1, b1) = a;
+let (s2, b2) = b1;
+let (s3, b3) = b2;
+let (s4, s5) = b3;
 
 let x1 = dmul z s5;
 let x2 = dmul z x1;

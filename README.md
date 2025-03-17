@@ -1,8 +1,8 @@
 Bean: Backward Error Analysis
 =====
-This is the artifact for `bean`, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). It implements the algorithm from Section 5.1.
+This is the artifact for `bean`, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). It implements the algorithm given in Section 5.1. 
 
-The examples shown in Section 4 can be found under `examples/`. The benchmarks from Section 5.2 can be found under `benchmarks/`.
+The examples given in Section 4 can be found under `examples/`. The benchmarks from Section 5.2 can be found under `benchmarks/`.
 
 The type checker is based on the implementation due to Arthur Azevedo de Amorim and co-authors [1].
 
@@ -87,6 +87,21 @@ The inferred context tells us that our input vector `v` has a backward error bou
 **This means that there exists a vector $\tilde{v}$, where $|\ln(v/\tilde{v})|\leq 2.22\cdot 10^{-16}$, such that $u\cdot\tilde{v}=$`InnerProduct u v`.**
 
 Note that for vectors and matrices, we report the maximum element-wise backward error bound. 
+
+## Running benchmarks
+To run the benchmarks given in Section 5.2 of the paper, use the provided Makefile. Run 
+```
+make small
+```
+in the `bean` directory to run the benchmarks which take just a few seconds to run. The output will be piped to a file, `benchmarks.txt`. Run
+```
+make all
+```
+to run all the benchmarks. Note that this make take several minutes. The largest benchmark took us about 16 minutes to complete. Run
+```
+make clean
+```
+to remove the `benchmarks.txt` file and other generated Dune files.
 
 ## Writing a Bean program
 

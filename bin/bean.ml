@@ -17,10 +17,10 @@ let argDefs =
       " Disable unicode printing" );
     ( "--unit-roundoff",
       Arg.Int (fun n -> debug_options := { !debug_options with roundoff = Some n }), 
-      " Set a unit roundoff value, 2^(-n)" );
+      " Set unit roundoff value to 2^(-n)" );
     ( "-u",
       Arg.Int (fun n -> debug_options := { !debug_options with roundoff = Some n }), 
-      " Set a unit roundoff value, 2^(-n)" );
+      " Set unit roundoff value to 2^(-n)" );
   ]
 
 let dp = Support.FileInfo.dummyinfo

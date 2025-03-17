@@ -46,7 +46,7 @@ let rec pp_be fmt s =
   match s with
   | BeConst flt -> 
     (match !debug_options.roundoff with
-      None -> fprintf fmt "[%s%s]" (string_of_float flt) (u_sym Symbols.Eps)
+      None -> fprintf fmt "[%s]%s" (string_of_float flt) (u_sym Symbols.Eps)
     | Some n -> 
         let u = 2. ** (float_of_int (-n)) in
         let eps = u /. (1. -. u) in
