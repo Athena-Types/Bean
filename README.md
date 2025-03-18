@@ -1,6 +1,6 @@
 Bean: Backward Error Analysis
 =====
-This is the artifact for Bean, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper [Bean: A Language for Backward Error Analysis](https://arxiv.org/abs/2501.14550). It implements the algorithm given in Section 5.1. 
+This is the artifact for Bean, a prototype implementation of the type system and floating-point backward error analysis tool described in the paper **Bean: A Language for Backward Error Analysis**. It implements the algorithm given in Section 5.1. 
 
 The examples given in Section 4 can be found under `examples/`. The benchmarks from Section 5.2 can be found under `benchmarks/`.
 
