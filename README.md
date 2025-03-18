@@ -145,12 +145,12 @@ e, f ::=                               EXPRESSIONS
     dlet x : DT = e; f                 let-binding with type annotation
     op a b                             op in (add, mul, sub, div, dmul), a and b are variables
 ```
-- **Sequencing**: All computations are explicitly sequenced by let-bindings using the syntax `let x = v; e`. 
+- **Sequencing**: All computations are explicitly sequenced by let-bindings using the syntax `let x = e; f`. 
 
 - **Pairs**: The syntax for tensor pairs $− \otimes −$ is `(-, -)` and the syntax for the type is also `(-, -)`. 
 
-- **Linear and discrete inputs**: At the beginning of our programs, we write `{(ID1 : Type1) (ID2 : Type)}` to denote the 
-context of linear variables. Next, we write `{(ID3 : DType) (ID4 : DType)}` to denote the context of discrete variables.
+- **Discrete and linear inputs**: At the beginning of our programs, we write `{(ID1 : DType1) (ID2 : DType2)}` to denote the 
+context of discrete variables. Next, we write `{(ID3 : Type1) (ID4 : Type2)}` to denote the context of linear variables.
 All variable names must be distinct and if one context is empty, you must still include the empty braces `{}`.
 
 - **Primitive Operations**: The type signature and name of each primitive operation is given below. 
