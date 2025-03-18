@@ -2,7 +2,7 @@
 {(M : ((num, num), (num, num)))}
 
 /*
-    Computes M * v, where M is a 2x2 matrix and 
+    Computes Mv, where M is a 2x2 matrix and 
     v is a vector in R^2.
 */
 

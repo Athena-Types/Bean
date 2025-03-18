@@ -2,9 +2,8 @@
 {(A : ((num, num), (num, num))) (b : (num, num))}
 
 /* 
-    Suppose Ax = b where A is a 2x2 lower triangular matrix and 
-    b is a vector in R^2.
-    Thus, x1 = b1 / A11 and we solve for x2.
+    Computes x where Ax = b, A is a 2x2 lower triangular matrix and 
+    b and x are vectors in R^2.
 */
 
 let (a0, a1) = A;

@@ -2,7 +2,8 @@
 {(v : (num, num))}
 
 /* 
-    Computes the inner product of two vectors in R^2.
+    Computes the inner product of two vectors in R^2,
+    pushing error only onto the second vector.
 */
 
 dlet (u1, u2) = u;

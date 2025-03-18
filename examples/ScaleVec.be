@@ -2,7 +2,7 @@
 {(x : (num, num))}
 
 /*
-    Computes a * x where x is in R^2.
+    Computes ax where x is in R^2.
 */
 
 let (x0, x1) = x;

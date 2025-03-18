@@ -2,7 +2,7 @@
 {(M : ((num, num), (num, num))) (u : (num, num))}
 
 /* 
-    Computes a * M * v + b * u where M is a 2x2 matrix and
+    Computes aMv + bu where M is a 2x2 matrix and
     u and v are vectors in R^2.
 */
 

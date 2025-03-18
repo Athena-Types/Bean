@@ -2,7 +2,7 @@
 {(x : (num, num)) (y : (num, num))}
 
 /* 
-    Computes a * x + y where x and y are vectors in R^2.
+    Computes ax + y where x and y are vectors in R^2.
 */
 
 /* let (x0, x1) = ScaleVec a x */
