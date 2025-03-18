@@ -11,7 +11,7 @@ The type checker is based on the implementation due to Arthur Azevedo de Amorim 
 ## Getting started 
 Bean can be built manually or using the provided Docker image.
 
-### Build via Docker
+### Build with Docker
 
 If you have [Docker](https://docs.docker.com/engine/install/), in the `bean` directory, run
 ```
@@ -139,10 +139,10 @@ e, f ::=                               EXPRESSIONS
     let (x, y) = v; e                  linear tensor destructor
     dlet (x, y) = v; e                 discrete tensor destructor
     case v {inl x => e | inr x => f}   case analysis
-    let x = e; f                       monadic sequencing, where e is linear
-    let x : T = e; f                   monadic sequencing with type annotation
-    dlet x = e; f                      monadic sequencing, where e is discrete
-    dlet x : DT = e; f                 monadic sequencing with type annotation
+    let x = e; f                       let-binding, where e is linear
+    let x : T = e; f                   let-binding with type annotation
+    dlet x = e; f                      let-binding, where e is discrete
+    dlet x : DT = e; f                 let-binding with type annotation
     op a b                             op in (add, mul, sub, div, dmul), a and b are variables
 ```
 - **Sequencing**: All computations are explicitly sequenced by let-bindings using the syntax `let x = v; e`. 
