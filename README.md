@@ -24,6 +24,7 @@ docker run -it --rm bean
 
 ### Build manually
 
+This manual build has been tested on `macOS 15.4`.
 First, get `opam >= 2.3` [here](https://opam.ocaml.org/doc/Install.html). 
 You need `ocaml >= 5.1` plus `dune >= 3.17` and `menhir >= 20240715`. 
 Install them with 
@@ -44,7 +45,7 @@ dune build
 
 Type check an example with the following command:
 ```
-dune exec -- bean examples/EXAMPLE.be
+dune exec -- bean examples/InnerProduct.be
 ```
 - Turn on debug output with the flag `--debug` or `-d`.
 - Disable unicode printing with the flag `--disable-unicode`.
@@ -86,7 +87,7 @@ The inferred context tells us that our input vector `v` has a backward error bou
 
 **This means that there exists a vector $\tilde{v}$, where $|\ln(v/\tilde{v})|\leq 2.22\cdot 10^{-16}$, such that $u\cdot\tilde{v}=$`InnerProduct u v`.**
 
-Note that for vectors and matrices, we report the maximum element-wise backward error bound. 
+Note that for vectors and matrices, we report the maximum componentwise backward error bound. 
 
 ## Running benchmarks
 To run the benchmarks given in Section 5.2 of the paper, use the provided Makefile. Run 
