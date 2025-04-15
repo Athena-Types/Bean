@@ -85,7 +85,7 @@ Execution time: 0.000878s
 The return type of `InnerProduct` is `ℝ`. 
 The inferred context tells us that our input vector `v` has a backward error bound of `2.22e-16`.
 
-**This means that there exists a vector $\tilde{v}$, where $|\ln(v/\tilde{v})|\leq 2.22\cdot 10^{-16}$, such that $u\cdot\tilde{v}=$`InnerProduct u v`.**
+**This means that there exists a vector $\tilde{v}$, where $\max_{i=1,2}|\ln(v_i/\tilde{v}_i)|\leq 2.22\cdot 10^{-16}$, such that $u\cdot\tilde{v}=$`InnerProduct u v`.**
 
 Note that for vectors and matrices, we report the maximum componentwise backward error bound. 
 
